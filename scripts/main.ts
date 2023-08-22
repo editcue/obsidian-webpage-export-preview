@@ -100,6 +100,7 @@ export default class HTMLExportPlugin extends Plugin
 		ExportSettings.loadSettings();
 
 		// init last exported data
+		// @ts-ignore
 		this.lastExported = this.app.loadLocalStorage(LOCALSTORAGE_KEY) ?? {};
 
 		// add export vault icon to ribbon
@@ -186,6 +187,7 @@ export default class HTMLExportPlugin extends Plugin
 		if (
 			ExportSettings.settings.incrementalExport &&
 			this.lastExported &&
+			// @ts-ignore
 			file.stat.mtime <= this.lastExported[file.path]
 		) {
 			new Notice(
@@ -234,7 +236,7 @@ export default class HTMLExportPlugin extends Plugin
 			HTMLGenerator.endBatch();
 		}
 
-		this.lastExported[file.path] = new Date().getTime();
+		this.lastExported[file.path] = String(new Date().getTime());
 
 		return exportedFile;
 	}
@@ -341,6 +343,7 @@ export default class HTMLExportPlugin extends Plugin
 
 	onunload()
 	{
+		// @ts-ignore
 		this.app.saveLocalStorage(LOCALSTORAGE_KEY, this.lastExported);
 		console.log('unloading webpage-html-export plugin');
 	}
