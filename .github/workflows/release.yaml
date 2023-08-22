@@ -12,8 +12,14 @@ on:
         - info
         - warning
         - debug
-
-
+      tags:
+        description: 'Build preview release'
+        required: false
+        type: boolean
+      release_name:
+        description: 'Release name'
+        required: true
+        type: string
         
 
 
@@ -42,3 +48,13 @@ jobs:
           ls
           echo "::set-output name=tag_name::$(git tag --sort version:refname | tail -n 1)"
           
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ steps.build.outputs.tag_name }}
+          release_name: ${{ github.event.inputs.release_name }}
+          draft: false
+          prerelease: ${{ github.event.inputs.tags }}
