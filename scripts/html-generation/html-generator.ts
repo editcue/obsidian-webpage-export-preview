@@ -509,8 +509,11 @@ export class HTMLGenerator
 			//@ts-ignore
 			let type = app.viewRegistry.typeByExtension[ext] ?? "audio";
 
-			if(ext === "svg") ext += "+xml";
-			
+			if(ext === "svg") {
+				ext += "+xml";
+				if (type === 'diagram')
+					type = 'image';
+			}
 			mediaEl.setAttribute("src", `data:${type}/${ext};base64,${base64}`);
 		};
 	}
