@@ -12,7 +12,7 @@ on:
         - info
         - warning
         - debug
-      tag_name:
+      tag:
         description: 'Tags name'
         required: false
         type: string
