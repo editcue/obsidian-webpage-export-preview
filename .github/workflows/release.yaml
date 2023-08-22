@@ -54,7 +54,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tags_name: ${{ github.ref }}
+          tags_name: "preview"
           release_name: Release ${{ steps.build.outputs.release_name }}
           draft: false
           prerelease: true
