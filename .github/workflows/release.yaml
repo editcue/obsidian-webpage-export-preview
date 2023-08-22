@@ -22,7 +22,7 @@ on:
       - "*"
 
 env:
-  PLUGIN_NAME: webpage-html-export-preview # Change this to match the id of your plugin.
+  PLUGIN_NAME: webpage-html-export # Change this to match the id of your plugin.
 
 jobs:
   build:
