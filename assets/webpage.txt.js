@@ -466,6 +466,8 @@ function setActiveDocument(url, scrollTo = true, pushHistory = true)
 //#region Initialization
 function setupThemeToggle(setupOnNode)
 {
+	// If the theme toggle element doesn't exist then don't setup the theme toggle
+	if (!setupOnNode.querySelector(".theme-toggle-input")) return;
 	if (localStorage.getItem("theme_toggle") != null)
     {
         setThemeToggle(localStorage.getItem("theme_toggle") == "true");
@@ -940,8 +942,8 @@ function initializePage(setupOnNode)
 				event.stopPropagation();
 				return;
 			}
-
-			if (element instanceof HTMLElement) element.click();
+			// Fix call click twice on mobile
+			if (element instanceof HTMLElement && element.className.indexOf('sidebar-mobile-btn--') < 0) element.click();
 		});
 	});
 
