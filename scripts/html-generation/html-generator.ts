@@ -31,7 +31,7 @@ export class HTMLGenerator
 		let usingDocument = file.document;
 
 		let sidebars = this.generateSideBars(file.contentElement, file);
-		this.generateSideBarBtns(file, sidebars);
+		let {leftBtn}=this.generateSideBarBtns(file, sidebars);
 		let rightSidebar = sidebars.right;
 		let leftSidebar = sidebars.left;
 		usingDocument.body.appendChild(sidebars.container);
@@ -71,6 +71,15 @@ export class HTMLGenerator
 			let fileTree: HTMLDivElement = this.generateHTMLTree(tree, usingDocument, app.vault.getName(), "file-tree", true, 1, 1, true);
 			leftSidebar.appendChild(fileTree);
 		}
+
+		// If theme toggle is not include and trees is not add , then hide sidebar left button and remove left sidebar
+		if (!ExportSettings.settings.addDarkModeToggle && !ExportSettings.settings.includeFileTree) {
+			sidebars.leftScroll.remove();
+			sidebars.left.remove();
+			leftBtn.style.opacity = "0";
+			leftBtn.style.pointerEvents = "none";
+		}
+
 
 		await this.fillInHead(file);
 
