@@ -12,10 +12,15 @@ on:
         - info
         - warning
         - debug
-      tags:
-        description: 'Build preview release'
+      tags_name:
+        description: 'Tags name'
         required: false
-        type: boolean
+        type: string
+      release_name:
+        description: 'Release name'
+        required: true
+        type: string
+        
 
 
 env:
@@ -49,8 +54,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ steps.build.outputs.tag_name }}
-          release_name: Release ${{ steps.build.outputs.tag_name }}
+          tag_name: ${{ steps.build.outputs.tags_name }}
+          release_name: Release ${{ steps.build.outputs.release_name }}
           draft: false
-          prerelease: ${{ github.event.inputs.tags }}
-
+          prerelease: true
