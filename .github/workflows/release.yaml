@@ -12,14 +12,8 @@ on:
         - info
         - warning
         - debug
-      tag:
-        description: 'Tags name'
-        required: false
-        type: string
-      release_name:
-        description: 'Release name'
-        required: true
-        type: string
+
+
         
 
 
@@ -48,13 +42,3 @@ jobs:
           ls
           echo "::set-output name=tag_name::$(git tag --sort version:refname | tail -n 1)"
           
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tags_name: "preview"
-          release_name: Release ${{ steps.build.outputs.release_name }}
-          draft: false
-          prerelease: true
